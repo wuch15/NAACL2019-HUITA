@@ -349,7 +349,7 @@ embedding_layer = Embedding(len(word_dict_freq), 300, weights=[wordemb],trainabl
 embedded_sequences = embedding_layer(sentence_input)
 d_emb=Dropout(0.2)(embedded_sequences)
 
-word_cnn = Convolution1D(nb_filter=150, filter_length=3,  padding='same', activation='relu', strides=1)(d_emb)
+word_cnn = Convolution1D(nb_filter=200, filter_length=3,  padding='same', activation='relu', strides=1)(d_emb)
 word_cnn_d=Dropout(0.2)(word_cnn)
 
 word_att = AttLayer()(word_cnn_d)
@@ -358,7 +358,7 @@ sentEncoder = Model(sentence_input, word_att)
 review_input = Input(shape=(MAX_SENTS, MAX_SENT_LENGTH), dtype='int32')
 review_encoder = TimeDistributed(sentEncoder, name='sentEncoder')(review_input)
 
-sent_cnn = Convolution1D(nb_filter=150, filter_length=3, padding='same', activation='relu', strides=1)(review_encoder)
+sent_cnn = Convolution1D(nb_filter=100, filter_length=3, padding='same', activation='relu', strides=1)(review_encoder)
 sent_cnn_d=Dropout(0.2)(sent_cnn)
 
 sent_att = AttLayer()(sent_cnn_d)
@@ -375,7 +375,7 @@ sentence_input2 = Input(shape=(MAX_SENT_LENGTH,), dtype='int32')
 embedded_sequences2 = embedding_layer(sentence_input2)
 d_emb2=Dropout(0.2)(embedded_sequences2)
 
-word_cnn2 = Convolution1D(nb_filter=150, filter_length=3,  padding='same', activation='relu', strides=1)(d_emb2)
+word_cnn2 = Convolution1D(nb_filter=200, filter_length=3,  padding='same', activation='relu', strides=1)(d_emb2)
 word_cnn_d2=Dropout(0.2)(word_cnn2)
 
 word_att2 = AttLayer()(word_cnn_d2)
@@ -384,7 +384,7 @@ sentEncoder2 = Model(sentence_input2, word_att2)
 review_input2 = Input(shape=(MAX_SENTS, MAX_SENT_LENGTH), dtype='int32')
 review_encoder2 = TimeDistributed(sentEncoder2, name='sentEncoder2')(review_input2)
 
-sent_cnn2 = Convolution1D(nb_filter=150, filter_length=3, padding='same', activation='relu', strides=1)(review_encoder2)
+sent_cnn2 = Convolution1D(nb_filter=100, filter_length=3, padding='same', activation='relu', strides=1)(review_encoder2)
 sent_cnn_d2=Dropout(0.2)(sent_cnn2)
 sent_att2 = AttLayer()(sent_cnn_d2)
 
@@ -398,9 +398,9 @@ user_id = Input(shape=(1,), dtype='int32')
 item_id = Input(shape=(1,), dtype='int32')
 
 
-user_embedding= Embedding(len(ur_id),200,trainable=True)(user_id)
+user_embedding= Embedding(len(ur_id),100,trainable=True)(user_id)
 user_embedding= Flatten()(user_embedding)
-item_embedding = Embedding(len(ir_id), 200,trainable=True)(item_id)
+item_embedding = Embedding(len(ir_id), 100,trainable=True)(item_id)
 item_embedding= Flatten()(item_embedding)
 factor=concatenate([user_att,user_embedding])
 factor2=concatenate([item_att,item_embedding])
