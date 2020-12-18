@@ -187,12 +187,12 @@ for i in ur_id:
 all_u=[]
 for i in ur_id:
     tp=[]
-    for j in ur_id[i][:MAX_REU]:
+    for j in ur_id[i][:MAX_REVIEW_USER]:
         
         atp=[x[:MAX_SENT_LENGTH] for x in uir_triples[j]['text'][:MAX_SENTS]]
         btp=[x+(MAX_SENT_LENGTH-len(x))*[0] for x in atp]
         tp.append(btp+[[0]*MAX_SENT_LENGTH]*(MAX_SENTS-len(btp)))
-    all_u.append(tp+[[[0]*MAX_SENT_LENGTH]*MAX_SENTS]*(MAX_REU-len(tp)))
+    all_u.append(tp+[[[0]*MAX_SENT_LENGTH]*MAX_SENTS]*(MAX_REVIEW_USER-len(tp)))
 
 
 # In[ ]:
